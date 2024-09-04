@@ -1,0 +1,8 @@
+# ninja log v5
+1	7604	1718109033031368142	/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/build/temp.linux-x86_64-cpython-310/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/src/cpu/deform_cpu.o	129a382c39d1efa
+1	7731	1718109033155370085	/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/build/temp.linux-x86_64-cpython-310/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/src/cpu/deform_psroi_pooling_cpu.o	1a6d3a10d5eca240
+2	8016	1718109033443374594	/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/build/temp.linux-x86_64-cpython-310/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/src/cpu/modulated_deform_cpu.o	6e72666360018b6f
+3	23203	1718109048615612063	/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/build/temp.linux-x86_64-cpython-310/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/src/cuda/deform_psroi_pooling_cuda.o	1c0307097978379a
+2	23999	1718109049415624575	/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/build/temp.linux-x86_64-cpython-310/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/src/cuda/deform_conv_cuda.o	97c682a607c84e93
+3	24235	1718109049647628204	/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/build/temp.linux-x86_64-cpython-310/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/src/cuda/modulated_deform_conv_cuda.o	b33456f501ac7f81
+3	24953	1718109050375639591	/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/build/temp.linux-x86_64-cpython-310/home/yuran/Projects/NLSPN_ECCV20/src/model/deformconv/src/vision.o	690a35021e0c96ce
