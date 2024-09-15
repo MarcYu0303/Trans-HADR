@@ -1,0 +1,111 @@
+# general options
+trainer_name: keypoints
+exp_type: train
+base_log_dir: ../logs/keypoints
+log_name: keypoints_extractor
+custom_postfix: ''
+resume: latest_network.pth
+gpu_id: 
+vis_gpu: '0'
+num_gpus: 1
+seed: 1234
+# debug: True
+
+# seg mask setting
+mask_type: "corrupt"
+
+# data setting
+dataset:
+  type: transhand
+  use_data_augmentation: True
+  img_width: 320
+  img_height: 240
+  split_ratio: 0.9
+  omni_corrupt_all: True
+  corrupt_table: True
+  depth_aug: False
+  corrupt_all_pix: False
+  # ellipse dropout
+  ellipse_dropout_mean: 20
+  ellipse_gamma_shape: 10.0
+  ellipse_gamma_scale: 1.0
+
+# data stting for HandDepthNet
+DATA:
+  # BATCH_SIZE: 15
+
+  TRAIN_SET_PATH: "path/to/train"
+  TEST_SET_PATH: "path/to/test"
+  VAL_SET_PATH: "path/to/val"
+
+  SIM_CAMERA_PARAM_FX: 1137.77783203125
+  SIM_CAMERA_PARAM_FY: 1137.77783203125
+  SIM_CAMERA_PARAM_CX: 640.0
+  SIM_CAMERA_PARAM_CY: 360.0
+
+  PIC_ORIN_W: 1280
+  PIC_ORIN_H: 720
+  PIC_RESIZED_W: 224
+  PIC_RESIZED_H: 224
+
+  IGNORE_TRAIN_OBJ: ['']
+  IGNORE_VAL_OBJ: ['']
+  IGNORE_TEST_OBJ: ['']
+
+  DILATE_OBJECT_MASK: False
+
+  PERCENTAGE_DATA_FOR_TRAIN: 1.0
+  PERCENTAGE_DATA_FOR_VAL: 1.0
+  PERCENTAGE_DATA_FOR_TEST: 1.0
+
+# model setting
+model:
+  # model for handkeypoints detection
+  keypoints:
+    net: 'KPFusion-resnet-18'
+    use_rgb: False
+    use_depth: False
+    use_corrupt_depth: True
+    use_hand_depth: False
+
+# training setting
+training:
+  batch_size: 50
+  valid_batch_size: 10
+  nepochs: 100
+  nepoch_decay: 70
+  decay_gamma: 0.1
+  nepoch_ckpt: 10
+  log_interval: 5
+  train_vis_iter: 200
+  val_vis_iter: 20
+  lr: 0.001
+  do_valid: True
+  optimizer_name: Adam
+  scheduler_name: StepLR
+
+  record_gradient: True
+
+loss:
+  pos_loss_type: single
+  pos_w: 100.0
+  prob_loss_type: ray
+  prob_w: 0.5
+  surf_norm_w: 10.0
+  surf_norm_epo: 0
+
+# distributed setting, only used it when multiprocessing-distributed set to True
+dist:
+  ddp: False
+  dist_url: tcp://127.0.0.1:12345
+  dist_backend: nccl
+  # nodes number
+  nodes_num: 1
+  # rank of current node
+  node_rank: 0
+  # GPUs/Process number per node
+  ngpus_per_node: 4
+  # totol GPU number. eequal to nodes_num * ngpus_per_node. handled by create trainer
+  world_size: 
+  # gpu id among all nodes all processes, handled by create trainer
+  global_gpu_id:

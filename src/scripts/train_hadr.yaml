@@ -1,0 +1,175 @@
+# general options
+trainer_name: lidf
+exp_type: train
+base_log_dir: ../logs/hadr
+log_name: train_hadr
+custom_postfix: ''
+resume: latest_network.pth
+gpu_id:
+vis_gpu: '0'
+num_gpus: 1
+seed: 1234
+# debug: True
+
+# seg mask setting
+mask_type: "corrupt"
+
+# data setting
+dataset:
+  type: transhand
+  use_data_augmentation: True
+
+# data setting for TransHand
+DATA:
+  # BATCH_SIZE: 15
+  IMG_SIZE: 224
+
+  TRAIN_SET_PATH: "path/to/train"
+  TEST_SET_PATH: "path/to/test"
+  VAL_SET_PATH: "path/to/val"
+
+  SIM_CAMERA_PARAM_FX: 1137.77783203125
+  SIM_CAMERA_PARAM_FY: 1137.77783203125
+  SIM_CAMERA_PARAM_CX: 640.0
+  SIM_CAMERA_PARAM_CY: 360.0
+
+  PIC_ORIN_W: 1280
+  PIC_ORIN_H: 720
+  PIC_RESIZED_W: 224
+  PIC_RESIZED_H: 224
+
+  IGNORE_TRAIN_OBJ: ['']   # ['0004', '0007']  for generalization experiment
+  IGNORE_VAL_OBJ: ['']      # ['0000', '0001', '0005', '0006', '0008', '0009'] for generalization experiment
+  IGNORE_TEST_OBJ: ['']     # ['0000', '0001', '0005', '0006', '0008', '0009'] for generalization experiment
+
+  DILATE_OBJECT_MASK: False
+
+  PERCENTAGE_DATA_FOR_TRAIN: 1.0
+  PERCENTAGE_DATA_FOR_VAL: 1.0
+  PERCENTAGE_DATA_FOR_TEST: 1.0
+
+# model setting
+model:
+  # rgb
+  rgb_model_type: swin # resnet, swin
+  rgb_embedding_type: ROIAlign
+  rgb_in: 3
+  rgb_out: 32
+  roi_inp_bbox: 8
+  roi_out_bbox: 2
+  # pnet
+  pnet_model_type: twostage_pointfusion # twostage, twostage_pointfusion, twostage_voxelfusion
+  pnet_in: 3
+  pnet_out: 128
+  pnet_gf: 32
+  pnet_pos_type: rel # abs, rel, combine
+  pnet_voxel_fusion:
+    roi_inp_bbox: 8
+    roi_out_bbox: 1
+  # hand features
+  use_hand_features: True
+  use_relative_pos: True
+  use_2d_hand_features: False
+  num_hand_kpts: 21
+  use_pred_keypoints: True
+  use_relative_hand_feature: True
+  keypoints:
+    net: 'KPFusion-resnet-18'
+    use_rgb: False
+    use_depth: True
+    use_corrupt_depth: False
+    use_hand_depth: True
+    ckpts_dir: 'path/to/keypoints_detection' # path to the checkpoints of keypoints detection model
+  use_kpts_encoder: False
+  keypoints_encoder:
+    output_dim: 64
+    hidden_dim: 128
+  # positional encoding
+  pos_encode: True
+  intersect_pos_type: abs
+  multires: 8
+  multires_views: 4
+  # decoder
+  offdec_type: IEF
+  n_iter: 2
+  probdec_type: IMNET
+  imnet_gf: 64
+  scatter_type: Maxpool
+  maxpool_label_epo: 6
+
+  # feature fusion
+  fusion:
+    use_fusion: False
+    fusion_type: 'gated_fusion' # deep_fusion, adaptive_fusion, concat, cross_atten, gated_fusion
+
+  # swin transformer
+  SWIN:
+    PATCH_SIZE: 4
+    EMBED_DIM: 96 # original: 96
+    EMBED_REPEAT: 3
+    DEPTHS: [2, 2, 6, 2] # original [2, 2, 6, 2]  [2, 2, 6]
+    DECODER_DEPTHS: [ 2, 2, 2, 1] # original [2, 2, 6, 2]
+    NUM_HEADS: [3, 6, 12, 24] # original [3, 6, 12, 24]
+    WINDOW_SIZE: 7
+    MLP_RATIO: 4.
+    QKV_BIAS: True
+    QK_SCALE: None
+    APE: False
+    PATCH_NORM: True
+    FINAL_UPSAMPLE: "expand_first"
+    USE_CHECKPOINT: False
+    DROP_RATE: 0.0
+    DROP_PATH_RATE: 0.2
+    USE_PRETRAIN_CKPT: True
+    PRETRAIN_CKPT: 'path/to/swin_pretrain.pth'
+
+# grid setting
+grid:
+  res: 8
+  miss_sample_num: 20000
+  valid_sample_num: 10000
+  offset_range: [0.,1.]
+
+# training setting
+training:
+  batch_size: 40
+  valid_batch_size: 10
+  nepochs: 100
+  nepoch_decay: 80
+  decay_gamma: 0.1
+  nepoch_ckpt: 50
+  log_interval: 5
+  train_vis_iter: 5000
+  val_vis_iter: 1500
+  lr: 0.001
+  do_valid: True
+  optimizer_name: Adam
+  scheduler_name: StepLR
+
+loss:
+  pos_loss_type: single # combined
+  pos_w: 200.0 # default 100.0
+  prob_loss_type: ray
+  prob_w: 0.5 # default 0.5
+  surf_norm_w: 10.0 # default 10.0
+  surf_norm_epo: 0
+  
+  use_depth_pos_loss: False
+  use_uncertainty_loss: False
+  uncertainty_lambda: 0.005
+
+# distributed setting, only used it when multiprocessing-distributed set to True
+dist:
+  ddp: False
+  dist_url: tcp://127.0.0.1:12345
+  dist_backend: nccl
+  # nodes number
+  nodes_num: 1
+  # rank of current node
+  node_rank: 0
+  # GPUs/Process number per node
+  ngpus_per_node: 4
+  # totol GPU number. eequal to nodes_num * ngpus_per_node. handled by create trainer
+  world_size: 
+  # gpu id among all nodes all processes, handled by create trainer
+  global_gpu_id:
