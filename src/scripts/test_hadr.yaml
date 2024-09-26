@@ -1,5 +1,5 @@
 # general options
-trainer_name: lidf
+trainer_name: hadr
 exp_type: test
 base_log_dir: ../logs/hadr
 log_name: debug

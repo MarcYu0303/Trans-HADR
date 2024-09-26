@@ -408,7 +408,7 @@ class HandDepthDataset(Dataset):
         #           'camera_params': camera_params,
         #           'camera_internal': _meta['camera internal']}
 
-        # for LIDF
+        # for HADR
         sample = {
             'rgb': _rgb_tensor.to(torch.float32),
             'corrupt_mask': _mask_obj_tensor.to(torch.float32),
