@@ -76,7 +76,7 @@ model:
     use_depth: True
     use_corrupt_depth: False
     use_hand_depth: True
-    ckpts_dir: '/home/yuran/Projects/implicit_depth/logs/keypoints/ckpt/depth_corrupt_2/best_network.pth'
+    ckpts_dir: 'path/to/keypoints_detection'
   use_kpts_encoder: False
   keypoints_encoder:
     output_dim: 64

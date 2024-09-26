@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 class DataCollection(object):
-    def __init__(self, path = '/home/ssr/transparent/data/0718/1'):
+    def __init__(self, path = ''):
         self.rgb_path = os.path.join(path, 'rgb')
         self.depth_path = os.path.join(path, 'depth')
         self.depth_image_path = os.path.join(path, 'depth_image')
