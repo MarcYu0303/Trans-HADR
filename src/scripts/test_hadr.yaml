@@ -118,7 +118,7 @@ model:
     DROP_RATE: 0.0
     DROP_PATH_RATE: 0.2
     USE_PRETRAIN_CKPT: True
-    PRETRAIN_CKPT: '/home/yuran/Projects/HandDepth/pretrained_model/swin_tiny_patch4_window7_224.pth'
+    PRETRAIN_CKPT: 'path/to/swin_pretrain.pth'
 
 # grid setting
 grid:
