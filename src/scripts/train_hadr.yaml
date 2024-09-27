@@ -77,8 +77,8 @@ model:
     net: 'KPFusion-resnet-18'
     use_rgb: False
     use_depth: True
-    use_corrupt_depth: False
-    use_hand_depth: True
+    use_corrupt_depth: True
+    use_hand_depth: False
     ckpts_dir: 'path/to/keypoints_detection' # path to the checkpoints of keypoints detection model
   use_kpts_encoder: False
   keypoints_encoder:
