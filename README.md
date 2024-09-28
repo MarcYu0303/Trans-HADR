@@ -9,7 +9,7 @@ Please first install the dependencies using pip:
 $ pip install -r requirments.txt
 ```
 
-Since this work is currently under review, we will upload the dataset once it is accepted. Contact me if you need an early access.
+Since this work is currently under review, we will release the dataset once it is accepted. Contact me if you need an early access.
 After dowloading the dataset, please extract the dataset and organize it into the following structure:
 ```
 TransHand-14K
