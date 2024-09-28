@@ -9,7 +9,8 @@ Please first install the dependencies using pip:
 $ pip install -r requirments.txt
 ```
 
-You can download TransHand-14K dataset from [here](https://cloud.tsinghua.edu.cn/d/f41d1020d6a44adc9d66/). After dowloading the dataset, please extract the dataset and organize it into the following structure:
+Since this work is currently under review, we will upload the dataset once it is accepted. Contact me if you need an early access.
+After dowloading the dataset, please extract the dataset and organize it into the following structure:
 ```
 TransHand-14K
 ├── train
